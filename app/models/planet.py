@@ -7,4 +7,7 @@ class Planet(db.Model):
     moons = db.Column(db.Integer)
     #rings = db.Column(db.Boolean)
 
+    def planet_string(self):
+        return f"{self.id} : {self.planet} Descriptions: {self.description}"
+
     

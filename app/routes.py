@@ -2,6 +2,7 @@ from app import db
 from flask import Blueprint
 from flask import request
 from flask import jsonify
+from flask import make_response
 from .models.planet import Planet
 
 solar_system_bp = Blueprint("planets", __name__, url_prefix="/planets")
@@ -17,7 +18,7 @@ def create_planets():
     db.session.add(new_planet)
     db.session.commit()
 
-    return f"Planet {new_planet.name} successfully created.", 201
+    return make_response(jsonify(f"Planet {new_planet.name} successfully created.", 201))
 
 @solar_system_bp.route("/<planet_id>", methods=["GET"], strict_slashes=False)
 def get_single_planet(planet_id):
@@ -42,6 +43,15 @@ def get_planets():
             "moons": planet.moons
         })
     return jsonify(planets_response, 200)
+
+@solar_system_bp.route("/<planet_id>", methods=["DELETE"], strict_slashes= False)
+def delete_planet(planet_id):
+    planet = Planet.query.get(planet_id) #what is .query.get returning
+    db.session.delete(planet)
+    db.session.commit()
+    return make_response(jsonify(f"Planet {planet.id} successfully deleted.", 201))
+
+
 
 
 

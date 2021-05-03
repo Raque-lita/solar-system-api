@@ -52,7 +52,17 @@ def delete_planet(planet_id):
     return make_response(jsonify(f"Planet {planet.id} successfully deleted.", 201))
 
 
+@solar_system_bp.route("/<planet_id>", methods=["PUT"], strict_slashes= False)
+def update_planet(planet_id):
+    planet = Planet.query.get(planet_id)
+    form_data = request.get_json()
 
+    planet.name = form_data["name"]
+    planet.description = form_data["description"]
+    planet.moons = form_data["moons"]
+
+    db.session.commit()
+    return make_response(f"Planet #{planet.id} successfully updated")
 
 
 

@@ -23,6 +23,9 @@ def create_planets():
 @solar_system_bp.route("/<planet_id>", methods=["GET"], strict_slashes=False)
 def get_single_planet(planet_id):
     planet = Planet.query.get(planet_id)
+    
+    if planet is None:
+        return make_response('none', 404)
     if planet:
         return {
             "id": planet.id,

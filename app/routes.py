@@ -4,11 +4,16 @@ from flask import request
 from flask import jsonify
 from flask import make_response
 from .models.planet import Planet
+from flask import render_template
 
 solar_system_bp = Blueprint("planets", __name__, url_prefix="/planets")
+#templates
+@solar_system_bp.route("/html")
+def template_example():
+    planets = Planet.query.all()
+    return render_template('template.html', planets=planets)
 
 @solar_system_bp.route("", methods=["POST"])
-
 def create_planets():
     request_body = request.get_json()
     new_planet = Planet(name=request_body["name"],

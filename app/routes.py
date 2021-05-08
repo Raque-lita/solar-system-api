@@ -50,7 +50,7 @@ def get_planets():
             "description": planet.description,
             "moons": planet.moons
         })
-    return jsonify(planets_response, 200)
+    return jsonify(planets_response), 200
 
 @solar_system_bp.route("/<planet_id>", methods=["DELETE"], strict_slashes= False)
 def delete_planet(planet_id):

@@ -11,7 +11,11 @@ solar_system_bp = Blueprint("planets", __name__, url_prefix="/planets")
 @solar_system_bp.route("/html")
 def template_example():
     planets = Planet.query.all()
-    return render_template('template.html', planets=planets)
+    planets_list = []
+    for planet in planets:
+        planets_list.append(f"{planet.name}, description: {planet.description}, moons: {planet.moons}")
+
+    return render_template('template.html', planets=planets, planets_list=planets_list)
 
 @solar_system_bp.route("", methods=["POST"])
 def create_planets():

@@ -1,20 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Flask app</title>
+        <title>Flask app</title>  
         <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
     </head>
 <head>
-    <title>Cool Solar Systems</title>
+    <title>Cool Solar System </title>
 </head>
 <body>
     
-    <h1>Cool Solar Systems</h1>
+    <h1>Cool Solar System</h1>
 
     {% for planet in planets%}
     <h2>{{planet.name}}</h>
+    
+    <h2>{{planets_list}}</h>
     {% endfor %}
-    <h2>{{planets}}</h>
     
 
 </body>
